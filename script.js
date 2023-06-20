@@ -30,6 +30,13 @@ const user = {
     let temporaryPre = Number(this.previousValue);
     let result = `${operators[this.previousSign](temporaryPre, temporaryCur)}`;
     result = this.fixFraction(result);
+    if (!isFinite(result)) {
+      this.currentValue = this.previousValue;
+      this.previousValue = ``;
+      this.previousSign = ``;
+      DOMResult.renderDOM();
+      return;
+    }
     this.previousValue = ``;
     this.previousSign = ``;
     this.currentValue = result;
@@ -39,7 +46,7 @@ const user = {
     if (decimalIndex === -1 || value.length - decimalIndex - 1 < 6) {
       return value;
     }
-    value = `${Number(value).toFixed(1)}`;
+    value = `${Number(value).toFixed(3)}`;
     return value;
   },
 };
@@ -116,16 +123,17 @@ const eventHandlers = {
       user.operate();
       DOMResult.renderResult();
     }
+    if (user.currentValue === "0") {
+      user.currentValue = `-${user.currentValue}`;
+      DOMResult.renderDOM();
+      return;
+    }
     if (user.previousValue === "") {
       user.previousValue = user.currentValue;
       user.currentValue = `0`;
       user.previousSign = `-`;
       DOMResult.renderDOM();
       return;
-    }
-    if (user.currentValue !== "" && user.currentValue === "0") {
-      user.previousSign = `-`;
-      DOMResult.renderDOM();
     }
   },
   divideFunc() {
@@ -217,10 +225,19 @@ const eventHandlers = {
     let thisNumber = item.target.getAttribute("data-number");
     if (!user.currentValue || user.currentValue === "0") {
       user.currentValue = thisNumber;
+      DOMResult.renderDOM();
+      return;
+    }
+
+    if (!user.currentValue || user.currentValue === "-0") {
+      user.currentValue = `-${thisNumber}`;
+      DOMResult.renderDOM();
+      return;
     } else {
       user.currentValue += thisNumber;
+      DOMResult.renderDOM();
+      return;
     }
-    DOMResult.renderDOM();
   },
 };
 
@@ -238,5 +255,38 @@ function renderFunction() {
   DOMButtons.equalsDOM.addEventListener("click", eventHandlers.equalsFunc);
   DOMButtons.dotDOM.addEventListener("click", eventHandlers.dotFunc);
 }
+
+document.addEventListener("keydown", (e) => {
+  if (!isNaN(Number(e.key))) {
+    let thisNumber = e.key;
+    if (!user.currentValue || user.currentValue === "0") {
+      user.currentValue = thisNumber;
+    } else {
+      user.currentValue += thisNumber;
+    }
+    DOMResult.renderDOM();
+  }
+  if (e.key === "=" || e.key === "Enter") {
+    eventHandlers.equalsFunc();
+  }
+  if (e.key === "Backspace") {
+    eventHandlers.deleteFunc();
+  }
+  if (e.key === "*") {
+    eventHandlers.multiplyFunc();
+  }
+  if (e.key === "/") {
+    eventHandlers.divideFunc();
+  }
+  if (e.key === "+") {
+    eventHandlers.addFunc();
+  }
+  if (e.key === "-") {
+    eventHandlers.subtractFunc();
+  }
+  if (e.key === "." || e.key === ",") {
+    eventHandlers.dotFunc();
+  }
+});
 
 renderFunction();
