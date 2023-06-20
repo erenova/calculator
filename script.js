@@ -20,7 +20,6 @@ const user = {
   },
   operateResult() {
     if (this.previousSign && operators[this.previousSign]) {
-      this.process();
       this.currentValue = this.previousValue;
       this.previousValue = ``;
       this.previousSign = ``;
@@ -30,12 +29,12 @@ const user = {
     let temporaryCur = Number(this.currentValue);
     let temporaryPre = Number(this.previousValue);
     let result = `${operators[this.previousSign](temporaryPre, temporaryCur)}`;
-    result = this.checkFraction(result);
+    result = this.fixFraction(result);
     this.previousValue = ``;
     this.previousSign = ``;
     this.currentValue = result;
   },
-  checkFraction(value) {
+  fixFraction(value) {
     const decimalIndex = value.indexOf(".");
     if (decimalIndex === -1 || value.length - decimalIndex - 1 < 6) {
       return value;
@@ -164,8 +163,13 @@ const eventHandlers = {
     }
   },
   equalsFunc() {
-    user.operate();
-    DOMResult.renderDOM();
+    if (user.currentValue === "0" || user.currentValue === "0.") {
+      user.operateResult();
+      DOMResult.renderDOM();
+    } else {
+      user.operate();
+      DOMResult.renderDOM();
+    }
   },
   dotFunc() {
     if (!user.currentValue.includes(".")) {
@@ -180,16 +184,30 @@ const eventHandlers = {
     DOMResult.renderDOM();
   },
   deleteFunc() {
+    const decimalIndex = user.currentValue.indexOf(".");
     if (
       user.currentValue &&
       user.currentValue !== "0" &&
       user.currentValue.length !== 1
     ) {
-      user.currentValue = user.currentValue.slice(
-        0,
-        user.currentValue.length - 1
-      );
-      DOMResult.renderDOM();
+      if (
+        decimalIndex !== -1 &&
+        user.currentValue.length - decimalIndex - 1 == 1
+      ) {
+        user.currentValue = user.currentValue.slice(
+          0,
+          user.currentValue.length - 2
+        );
+        DOMResult.renderDOM();
+
+        return;
+      } else {
+        user.currentValue = user.currentValue.slice(
+          0,
+          user.currentValue.length - 1
+        );
+        DOMResult.renderDOM();
+      }
     } else {
       user.currentValue = `0`;
       DOMResult.renderDOM();
