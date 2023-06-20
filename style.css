@@ -1,0 +1,158 @@
+/* Technical styling area */
+
+@font-face {
+  font-family: "ourland";
+  src: url("assets/ourland-webfont.woff2") format("woff2"),
+    url("assets/ourland-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: aliceblue;
+}
+
+/* Calculator */
+
+.calculator-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.calculator {
+  background: rgb(238, 174, 202);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(116, 144, 177, 1) 100%
+  );
+  font-family: "ourland";
+  gap: 30px;
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  min-width: 10vw;
+  max-width: 500px;
+  overflow: hidden;
+}
+
+/* Calculator > calculation */
+.result {
+  position: relative;
+  border-radius: 20px;
+  height: 100px;
+  border: 1px solid black;
+}
+.result-top {
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 5%;
+  max-width: 94%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 15px;
+}
+
+.result-previous {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.result-sign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.result-number {
+  overflow: hidden;
+
+  max-width: 96%;
+  bottom: 0;
+  position: absolute;
+  right: 0;
+  font-family: "ourland";
+  height: 10px;
+  font-size: 2.5rem;
+  height: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+/* Calculator > menu */
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.menu-deletion {
+  width: 100%;
+  flex: 1;
+  display: flex;
+}
+
+.menu-insertion {
+  width: 100%;
+  flex: 1;
+  flex-direction: column;
+}
+
+.menu-insertion > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "ourland";
+  font-size: 1.3rem;
+  min-width: 1vw;
+  flex: 1;
+  height: 50px;
+}
+
+.operation {
+  font-size: 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .calculator {
+    min-width: 250px;
+    width: 250px;
+  }
+}
+
+@media screen and (max-height: 635px) {
+  .calculator {
+    height: 360px;
+  }
+}
+
+@media screen and (min-width: 1700px) {
+  .calculator {
+    min-width: 250px;
+    width: 300px;
+  }
+}

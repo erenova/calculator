@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+
+<body>
+    <div class="calculator-area">
+        <div class="calculator">
+            <div class="result">
+                <div class="result-top">
+                    <div class="result-previous"></div>
+                    <div class="result-sign"></div>
+                </div>
+                <div class="result-number"></div>
+            </div>
+            <div class="menu">
+                <div class="menu-deletion">
+                    <button data-deletion="clear" class="menu-clear">Clear</button>
+                    <button data-deletion="delete" class="menu-delete">Delete</button>
+                </div>
+                <div class="menu-insertion">
+                    <div class="row1">
+                        <button data-number="7" class="menu-button">7</button>
+                        <button data-number="8" class="menu-button">8</button>
+                        <button data-number="9" class="menu-button">9</button>
+                        <button data-sign="divide" class="menu-button operation">/</button>
+                    </div>
+                    <div class="row2">
+                        <button data-number="4" class="menu-button">4</button>
+                        <button data-number="5" class="menu-button">5</button>
+                        <button data-number="6" class="menu-button">6</button>
+                        <button data-sign="multiply" class="menu-button operation">*</button>
+                    </div>
+                    <div class="row3">
+                        <button data-number="1" class="menu-button">1</button>
+                        <button data-number="2" class="menu-button">2</button>
+                        <button data-number="3" class="menu-button">3</button>
+                        <button data-sign="subtract" class="menu-button operation">-</button>
+                    </div>
+                    <div class="row4">
+                        <button data-sign="dot" class="menu-button">.</button>
+                        <button data-number="0" class="menu-button">0</button>
+                        <button data-sign="equals" class="menu-button">=</button>
+                        <button data-sign="add" class="menu-button add operation">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer"></div>
+</body>
+
+</html>
