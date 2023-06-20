@@ -281,10 +281,19 @@ document.addEventListener("keydown", (e) => {
     let thisNumber = e.key;
     if (!user.currentValue || user.currentValue === "0") {
       user.currentValue = thisNumber;
+      DOMResult.renderDOM();
+      return;
+    }
+
+    if (!user.currentValue || user.currentValue === "-0") {
+      user.currentValue = `-${thisNumber}`;
+      DOMResult.renderDOM();
+      return;
     } else {
       user.currentValue += thisNumber;
+      DOMResult.renderDOM();
+      return;
     }
-    DOMResult.renderDOM();
   }
   if (e.key === "=" || e.key === "Enter") {
     eventHandlers.equalsFunc();
