@@ -103,7 +103,11 @@ const DOMButtons = {
 const eventHandlers = {
   addFunc() {
     audioPlay();
-
+    if (user.currentValue === "-0" && user.previousValue !== "") {
+      user.previousSign = `+`;
+      DOMResult.renderDOM();
+      return;
+    }
     if (user.currentValue !== "" && user.currentValue !== "0") {
       user.operate();
       DOMResult.renderResult();
@@ -166,7 +170,11 @@ const eventHandlers = {
   },
   divideFunc() {
     audioPlay();
-
+    if (user.currentValue === "-0" && user.previousValue !== "") {
+      user.previousSign = `/`;
+      DOMResult.renderDOM();
+      return;
+    }
     if (user.currentValue !== "" && user.currentValue !== "0") {
       user.operate();
       DOMResult.renderResult();
@@ -185,7 +193,11 @@ const eventHandlers = {
   },
   multiplyFunc() {
     audioPlay();
-
+    if (user.currentValue === "-0" && user.previousValue !== "") {
+      user.previousSign = `*`;
+      DOMResult.renderDOM();
+      return;
+    }
     if (user.currentValue !== "" && user.currentValue !== "0") {
       user.operate();
       DOMResult.renderResult();
@@ -299,7 +311,7 @@ function renderFunction() {
 }
 
 document.addEventListener("keydown", (e) => {
-  if (!isNaN(Number(e.key))) {
+  if (!isNaN(Number(e.key)) && e.key !== " ") {
     audioPlay();
 
     let thisNumber = e.key;
@@ -339,6 +351,9 @@ document.addEventListener("keydown", (e) => {
   }
   if (e.key === "." || e.key === ",") {
     eventHandlers.dotFunc();
+  }
+  if (e.key === "Delete") {
+    eventHandlers.clearFunc();
   }
 });
 
