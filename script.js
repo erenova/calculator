@@ -1,5 +1,9 @@
 //? Operators
-
+let audioPlay = () => {
+  let audioY = new Audio("assets/audioY.wav");
+  audioY.currentTime = 0;
+  audioY.play();
+};
 const operators = {
   "+": (item1, item2) => item1 + item2,
   "-": (item1, item2) => item1 - item2,
@@ -98,6 +102,8 @@ const DOMButtons = {
 
 const eventHandlers = {
   addFunc() {
+    audioPlay();
+
     if (user.currentValue !== "" && user.currentValue !== "0") {
       user.operate();
       DOMResult.renderResult();
@@ -119,6 +125,8 @@ const eventHandlers = {
     }
   },
   subtractFunc() {
+    audioPlay();
+
     if (
       user.currentValue !== "" &&
       user.currentValue !== "0" &&
@@ -157,6 +165,8 @@ const eventHandlers = {
     }
   },
   divideFunc() {
+    audioPlay();
+
     if (user.currentValue !== "" && user.currentValue !== "0") {
       user.operate();
       DOMResult.renderResult();
@@ -174,6 +184,8 @@ const eventHandlers = {
     }
   },
   multiplyFunc() {
+    audioPlay();
+
     if (user.currentValue !== "" && user.currentValue !== "0") {
       user.operate();
       DOMResult.renderResult();
@@ -191,6 +203,8 @@ const eventHandlers = {
     }
   },
   equalsFunc() {
+    audioPlay();
+
     if (user.currentValue === "0" || user.currentValue === "0.") {
       user.operateResult();
       DOMResult.renderDOM();
@@ -200,18 +214,24 @@ const eventHandlers = {
     }
   },
   dotFunc() {
+    audioPlay();
+
     if (!user.currentValue.includes(".")) {
       user.currentValue += `.`;
       DOMResult.renderDOM();
     }
   },
   clearFunc() {
+    audioPlay();
+
     user.previousValue = ``;
     user.previousSign = ``;
     user.currentValue = `0`;
     DOMResult.renderDOM();
   },
   deleteFunc() {
+    audioPlay();
+
     const decimalIndex = user.currentValue.indexOf(".");
     if (
       user.currentValue &&
@@ -242,6 +262,8 @@ const eventHandlers = {
     }
   },
   numberFunc(item) {
+    audioPlay();
+
     let thisNumber = item.target.getAttribute("data-number");
     if (!user.currentValue || user.currentValue === "0") {
       user.currentValue = thisNumber;
@@ -278,6 +300,8 @@ function renderFunction() {
 
 document.addEventListener("keydown", (e) => {
   if (!isNaN(Number(e.key))) {
+    audioPlay();
+
     let thisNumber = e.key;
     if (!user.currentValue || user.currentValue === "0") {
       user.currentValue = thisNumber;
