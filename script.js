@@ -119,19 +119,39 @@ const eventHandlers = {
     }
   },
   subtractFunc() {
-    if (user.currentValue !== "" && user.currentValue !== "0") {
+    if (
+      user.currentValue !== "" &&
+      user.currentValue !== "0" &&
+      user.currentValue !== "-0"
+    ) {
       user.operate();
-      DOMResult.renderResult();
-    }
-    if (user.currentValue === "0") {
-      user.currentValue = `-${user.currentValue}`;
       DOMResult.renderDOM();
-      return;
     }
     if (user.previousValue === "") {
       user.previousValue = user.currentValue;
       user.currentValue = `0`;
       user.previousSign = `-`;
+      DOMResult.renderDOM();
+      return;
+    }
+    if (user.currentValue === "0" && user.previousSign === "-") {
+      user.currentValue = `-${user.currentValue}`;
+      user.previousSign = `-`;
+
+      DOMResult.renderDOM();
+      return;
+    }
+
+    if (user.currentValue === "0") {
+      user.previousSign = `-`;
+
+      DOMResult.renderDOM();
+      return;
+    }
+
+    if (user.currentValue === "-0") {
+      user.currentValue = `0`;
+
       DOMResult.renderDOM();
       return;
     }
